@@ -11,8 +11,8 @@
 
 
 <figure>
-	<img src='/img/components/piqueme/pexels-pixabay-277477.png' width='100%' />
-	<figcaption></figcaption>
+	<img src='/img/components/piqueme/pixabay-277477.jpg' width='100%' />
+	<figcaption>Aw . . . Let's peak inside guys!</figcaption>
 </figure>
 
 ##### Premium DOM Component
@@ -29,7 +29,7 @@
 
 <table>
 	<tr><th>Abstract</th></tr>
-	<tr><td><p>The <span class=product>Piqueme</span> DOM component is a just-in-time continuous feed of articles with collapse/expand control.</p> </td></tr>
+	<tr><td><p>The <span class=product>Piqueme</span> DOM component is a just-in-time continuous feed of articles featuring collapsable/expandable UI cards.</p> </td></tr>
 </table>
 
 ### Background
@@ -37,34 +37,37 @@
 Visitors appreciate the compact beauty of UI cards. They provide so much more
 than a simple hyperlink.
 
-UI cards typically have some combination of these elements: splash image,
-caption, kicker, headline, subhead, and/or lede paragraph.
-
-UI cards give visitors the gist of hyperlinked articles without the effort — for
-visitors, there's no forward navigation to a new page; and there's no back
-navigation to continue where they left off.
+UI cards typically have some combination of these elements: image, headline
+and/or lede paragraph. UI cards give visitors the gist of hyperlinked articles
+without the effort — for visitors, there's no forward navigation to check out a
+new page; and there's no back navigation to continue where they left off.
 
 UI cards *keep visitors on the same page*, and keep them reading your content.
 
-The <span>rwt-piqueme</span> goes two steps further. It allows the
-visitor to read the entire article without ever leaving the original document.
-And it saves network bandwidth by fetching articles only when needed.
+The <span>rwt-piqueme</span> goes two steps further than the classic UI
+card: 1) it allows the visitor to read the entire article without ever leaving
+the original document, and 2) it saves network bandwidth by fetching articles
+only when needed.
 
-The Piqueme component has these features:
+The <span>rwt-piqueme</span> component has these features:
 
    * Articles are initially displayed in *UI card* format with splash image, caption,
-      kicker, headline, subhead and lede.
-   * Visitors can choose to read the full article *in situ*.
-   * UI cards can be toggled between collapsed and expanded states.
-   * Articles are fetched just-in-time, when the visitor scrolls that part of the
-      document into view.
-   * A document that contains a large set of potential UI cards will fetch only
-      what's needed, and when needed.
+      kicker, headline, subhead, byline, dateline and lede.
+   * Visitors can choose to read the full article *in situ*, that is, without ever
+      leaving the host page.
+   * UI cards can be toggled between collapsed and expanded states, to show just the
+      UI card, or the full article.
+   * Articles are fetched just-in-time, when the visitor scrolls down to that part of
+      the document.
+   * A document that contains a large set of potential UI cards will only fetch
+      what's needed, and only when it's needed.
    * Each component instance handles a single on-demand article.
 
 #### In the wild
 
-To see examples of this component in use, visit any of these:
+To see examples of this component in use, visit any of these sites, and be sure
+to look under-the-hood at the source code to see how easy it is to use the
+component.
 
 
 <table>
@@ -78,13 +81,8 @@ To see examples of this component in use, visit any of these:
 #### Prerequisites
 
 The <span>rwt-piqueme</span> DOM component works in any browser that
-supports modern W3C standards.
-
-The UI card layout template can be modified using either plain HTML or <span>
-BLUE</span><span>PHRASE</span> notation (which can be compiled into HTML using the
-free <a href='https://hub.readwritetools.com/desktop/rwview.blue'>Read Write View</a>
-desktop app). It has no other prerequisites. Distribution and installation are
-done with either NPM or via Github.
+supports modern W3C standards. It has no other prerequisites. Distribution and
+installation are done with either NPM or via Github.
 
 #### Download
 
@@ -121,7 +119,7 @@ git clone https://github.com/readwritetools/rwt-piqueme.git<br />		</pre>
 
 ### Using the component
 
-After installation, you need to add two things to your HTML page to make use of
+After installation, you should add two things to your HTML page to make use of
 it:
 
    1. Add a `script` tag to load the component's `rwt-piqueme.js` file:
@@ -132,12 +130,59 @@ it:
    2. Add articles to the page one by one, identifying their location with the
       component's `sourceref` attribute:
 ```html
-<rwt-piqueme sourceref='https://example.com/article01.html'></rwt-piqueme>
-<rwt-piqueme sourceref='https://example.com/article02.html'></rwt-piqueme>
-<rwt-piqueme sourceref='https://example.com/article03.html'></rwt-piqueme>
-<rwt-piqueme sourceref='https://example.com/article04.html'></rwt-piqueme>
+<rwt-piqueme sourceref='/2021/Jan/article01.html'></rwt-piqueme>
+
+<rwt-piqueme sourceref='/2021/Feb/article02.html'></rwt-piqueme>
+
+<rwt-piqueme sourceref='/2021/Mar/article03.html'></rwt-piqueme>
+
+<rwt-piqueme sourceref='/2021/Apr/article04.html'></rwt-piqueme>
 ```
 
+
+### Article meta data
+
+The UI card properties that the visitor sees are extracted in real-time from
+each article. They are pulled from `<meta>` tags placed in each article's `<head>`.
+You should configure your web server to add the following meta tags:
+
+
+<dl>
+	<dt><code>picueme:photo</code></dt>
+	<dd>The URL to a picture to splash across the top of the UI card.</dd>
+	<dt><code>piqueme:caption</code></dt>
+	<dd>A one line description of the splash picture.</dd>
+	<dt><code>piqueme:kicker</code></dt>
+	<dd>A word or short phrase placed above the headline.</dd>
+	<dt><code>piqueme:headline</code></dt>
+	<dd>The article's title.</dd>
+	<dt><code>piqueme:subhead</code></dt>
+	<dd>The article's subtitle.</dd>
+	<dt><code>piqueme:byline</code></dt>
+	<dd>The author of the article.</dd>
+	<dt><code>piqueme:dateline</code></dt>
+	<dd>The date the article was published.</dd>
+	<dt><code>piqueme:lede</code></dt>
+	<dd>The first paragraph of the article.</dd>
+	<dt><code>piqueme:textblock</code></dt>
+	<dd>An HTML DOM selector referencing the <code>&lt;div&gt;</code> that contains the text of the article.</dd>
+</dl>
+
+All `<meta>` tags are optional. Configure only the ones that you want displayed in
+the UI card.
+
+Note that all URL's are subject to the browser's same-origin security policy. If
+articles or images are coming from a different server, you must ask that
+server's administrator to configure CORS permissions for your origin server.
+
+### UI card layout and styling
+
+The HTML layout for the UI card is configured in the component's `rwt-piqueme.blue`
+file. Only advanced applications will need to change this.
+
+The default CSS styling uses a dark mode theme. It is configured in the `rwt-piqueme.css`
+file. You can replace the contents of this file with CSS that matches your
+website's typeface and color theme.
 
 ### Life-cycle events
 
