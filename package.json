@@ -3,7 +3,7 @@
   "version": "1.0.3",
   "description": "A just-in-time continuous feed of articles featuring collapsable/expandable UI cards; a standards-based DOM Component",
   "author": "Read Write Tools",
-  "license": "SEE LICENSE in license.blue",
+  "license": "see license.html",
   "module": "rwt-piqueme.js",
   "repository": {
     "type": "git",
@@ -21,11 +21,12 @@
   },
   "homepage": "https://hub.readwritetools.com/components/piqueme.blue",
   "files": [
-    "rwt-piqueme.js",
-    "rwt-piqueme.blue",
-    "rwt-piqueme.css",
-    "rwt-registration-keys.js",
+    "img",
+    "license.html",
     "readme.md",
-    "img"
+    "rwt-piqueme.css",
+    "rwt-piqueme.html",
+    "rwt-piqueme.js",
+    "rwt-registration-keys.js"
   ]
 }

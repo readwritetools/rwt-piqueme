@@ -2,7 +2,7 @@
 const Static = {
     componentName: 'rwt-piqueme',
     elementInstance: 1,
-    htmlURL: '/node_modules/rwt-piqueme/rwt-piqueme.blue',
+    htmlURL: '/node_modules/rwt-piqueme/rwt-piqueme.html',
     cssURL: '/node_modules/rwt-piqueme/rwt-piqueme.css',
     htmlText: null,
     cssText: null

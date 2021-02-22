@@ -10,8 +10,9 @@
 
 
 
+
 <figure>
-	<img src='/img/components/piqueme/pixabay-277477.jpg' width='100%' />
+	<img src='/img/components/piqueme/piqueme-1500x750.jpg' width='100%' />
 	<figcaption>Aw . . . Let's peak inside guys!</figcaption>
 </figure>
 
@@ -89,10 +90,10 @@ installation are done with either NPM or via Github.
 
 <details>
 	<summary>Download using NPM</summary>
-	<p>If you are familiar with Node.js and the <code>package.json</code> file, you'll be comfortable installing the component just using this command:</p>
+	<p><b>OPTION 1:</b> Familiar with Node.js and the <code>package.json</code> file?<br />Great. Install the component with this command:</p>
 	<pre lang=bash>
 npm install rwt-piqueme<br />	</pre>
-	<p>If you are a front-end Web developer with no prior experience with NPM, follow these general steps:</p>
+	<p><b>OPTION 2:</b> No prior experience using NPM?<br />Just follow these general steps:</p>
 	<ul>
 		<li>Install <a href='https://nodejs.org'>Node.js/NPM</a> on your development computer.</li>
 		<li>Create a <code>package.json</code> file in the root of your web project using the command:</li>
@@ -108,9 +109,9 @@ npm install rwt-piqueme<br />		</pre>
 
 <details>
 	<summary>Download using Github</summary>
-	<p>If you are more comfortable using Github for installation, follow these steps:</p>
+	<p>If you prefer using Github directly, simply follow these steps:</p>
 	<ul>
-		<li>Create a directory <code>node_modules</code> in the root of your web project.</li>
+		<li>Create a <code>node_modules</code> directory in the root of your web project.</li>
 		<li>Clone the <span class=product>rwt-piqueme</span> DOM component into it using the command:</li>
 		<pre lang=bash>
 git clone https://github.com/readwritetools/rwt-piqueme.git<br />		</pre>
