@@ -27,41 +27,41 @@ export default class RwtPiqueme extends HTMLElement {
                 mode: 'open'
             }), this.shadowRoot.appendChild(e), this.shadowRoot.appendChild(t), this.captureSourceref(), 
             this.identifyChildren(), this.registerEventListeners(), this.registerIntersectionObserver(), 
-            this.sendComponentLoaded();
+            this.sendComponentLoaded(), this.validate();
         } catch (e) {
             console.log(e.message);
         }
     }
     getHtmlFragment() {
         return new Promise((async (e, t) => {
-            var i = `${Static.componentName}-html-template-ready`;
-            if (document.addEventListener(i, (() => {
+            var n = `${Static.componentName}-html-template-ready`;
+            if (document.addEventListener(n, (() => {
                 var t = document.createElement('template');
                 t.innerHTML = Static.htmlText, e(t.content);
             })), 1 == this.instance) {
-                var n = await fetch(Static.htmlURL, {
+                var i = await fetch(Static.htmlURL, {
                     cache: 'no-cache',
                     referrerPolicy: 'no-referrer'
                 });
-                if (200 != n.status && 304 != n.status) return void t(new Error(`Request for ${Static.htmlURL} returned with ${n.status}`));
-                Static.htmlText = await n.text(), document.dispatchEvent(new Event(i));
-            } else null != Static.htmlText && document.dispatchEvent(new Event(i));
+                if (200 != i.status && 304 != i.status) return void t(new Error(`Request for ${Static.htmlURL} returned with ${i.status}`));
+                Static.htmlText = await i.text(), document.dispatchEvent(new Event(n));
+            } else null != Static.htmlText && document.dispatchEvent(new Event(n));
         }));
     }
     getCssStyleElement() {
         return new Promise((async (e, t) => {
-            var i = `${Static.componentName}-css-text-ready`;
-            if (document.addEventListener(i, (() => {
+            var n = `${Static.componentName}-css-text-ready`;
+            if (document.addEventListener(n, (() => {
                 var t = document.createElement('style');
                 t.innerHTML = Static.cssText, e(t);
             })), 1 == this.instance) {
-                var n = await fetch(Static.cssURL, {
+                var i = await fetch(Static.cssURL, {
                     cache: 'no-cache',
                     referrerPolicy: 'no-referrer'
                 });
-                if (200 != n.status && 304 != n.status) return void t(new Error(`Request for ${Static.cssURL} returned with ${n.status}`));
-                Static.cssText = await n.text(), document.dispatchEvent(new Event(i)), this.validate();
-            } else null != Static.cssText && document.dispatchEvent(new Event(i));
+                if (200 != i.status && 304 != i.status) return void t(new Error(`Request for ${Static.cssURL} returned with ${i.status}`));
+                Static.cssText = await i.text(), document.dispatchEvent(new Event(n));
+            } else null != Static.cssText && document.dispatchEvent(new Event(n));
         }));
     }
     captureSourceref() {
@@ -122,61 +122,83 @@ export default class RwtPiqueme extends HTMLElement {
             referrerPolicy: 'no-referrer'
         });
         if (200 != e.status && 304 != e.status) return null;
-        var t = await e.text(), i = document.createElement('template');
-        return i.innerHTML = t, i.content;
+        var t = await e.text(), n = document.createElement('template');
+        return n.innerHTML = t, n.content;
     }
     copyFragmentText() {
-        this.copyImgSrcFromMeta('piqueme:photo', this.splash), this.copyValueFromMetaElement('piqueme:caption', this.caption), 
-        this.copyValueFromMetaElement('piqueme:kicker', this.kicker), this.copyValueFromMetaElement('piqueme:headline', this.headline), 
-        this.copyValueFromMetaElement('piqueme:subhead', this.subhead), this.copyValueFromMetaElement('piqueme:lede', this.lede), 
-        this.copyValueFromMetaElement('piqueme:dateline', this.dateline), this.copyValueFromMetaElement('piqueme:byline', this.byline), 
-        this.copyHTMLFromSelector('piqueme:textblock', this.textblock), this.copyValueFromMetaElement('piqueme:headline', this.canonicalUrl), 
-        this.canonicalUrl.href = this.remoteUrl;
+        this.copyImgSrcFromMeta('piqueme:photo', 'og:image', 'twitter:image', this.splash), 
+        this.copyValueFromMetaElement('piqueme:caption', 'og:image:alt', 'twitter:image:alt', this.caption), 
+        this.copyValueFromMetaElement('piqueme:kicker', null, null, this.kicker), this.copyValueFromMetaElement('piqueme:headline', 'og:title', 'twitter:title', this.headline), 
+        this.copyValueFromMetaElement('piqueme:subhead', null, null, this.subhead), this.copyValueFromMetaElement('piqueme:lede', 'og:description', 'twitter:desciption', this.lede), 
+        this.copyValueFromMetaElement('piqueme:dateline', null, null, this.dateline), this.copyValueFromMetaElement('piqueme:byline', null, null, this.byline), 
+        this.copyHTMLFromSelector('piqueme:textblock', this.textblock), this.finalFallbacks(), 
+        this.canonicalUrl.innerText = this.headline.innerText, this.canonicalUrl.href = this.remoteUrl;
     }
-    copyValueFromMetaElement(e, t) {
-        var i = this.documentFragment.querySelector(`meta[name="${e}"]`);
-        null != i && (t.innerText = i.getAttribute('content'));
+    copyImgSrcFromMeta(e, t, n, i) {
+        var s = this.documentFragment.querySelector(`meta[name="${e}"]`);
+        null == s && null != t && (s = this.documentFragment.querySelector(`meta[property="${t}"]`)), 
+        null == s && null != n && (s = this.documentFragment.querySelector(`meta[name="${n}"]`)), 
+        null != s && i.setAttribute('src', s.getAttribute('content'));
     }
-    copyImgSrcFromMeta(e, t) {
-        var i = this.documentFragment.querySelector(`meta[name="${e}"]`);
-        null != i && t.setAttribute('src', i.getAttribute('content'));
+    copyValueFromMetaElement(e, t, n, i) {
+        var s = this.documentFragment.querySelector(`meta[name="${e}"]`);
+        null == s && null != t && (s = this.documentFragment.querySelector(`meta[property="${t}"]`)), 
+        null == s && null != n && (s = this.documentFragment.querySelector(`meta[name="${n}"]`)), 
+        null != s && (i.innerText = s.getAttribute('content'));
+    }
+    finalFallbacks() {
+        var e;
+        '' == this.headline && (null != (e = this.documentFragment.querySelector('title')) && (this.headline = e.innerText));
+        '' == this.lede && (null != (e = this.documentFragment.querySelector('meta[name="description"]')) && (this.lede = e.getAttribute('content')));
     }
     copyHTMLFromSelector(e, t) {
-        var i = this.documentFragment.querySelector(`meta[name="${e}"]`);
-        if (null != i) {
-            var n = i.getAttribute('content');
-            if (null != n) {
-                var s = this.documentFragment.querySelector(n);
-                null != s && (t.innerHTML = s.innerHTML);
+        var n = this.documentFragment.querySelector(`meta[name="${e}"]`);
+        if (null != n) {
+            var i = n.getAttribute('content');
+            if (null != i) {
+                var s = this.documentFragment.querySelector(i);
+                if (null != s) return void (t.innerHTML = s.innerHTML);
             }
         }
+        var a = [];
+        for (let e = 0; e < this.documentFragment.children.length; e++) switch (this.documentFragment.children[e].tagName) {
+          case 'TITLE':
+          case 'META':
+          case 'LINK':
+          case 'STYLE':
+          case 'SCRIPT':
+            break;
+
+          default:
+            a.push(this.documentFragment.children[e].innerHTML);
+        }
+        t.innerHTML = a.join('\n');
     }
     async validate() {
-        var e = (s = window.location.hostname).split('.'), t = 25;
-        if (e.length >= 2) {
-            var i = e[e.length - 2].charAt(0);
-            (i < 'a' || i > 'z') && (i = 'q'), t = i.charCodeAt(i) - 97, t = Math.max(t, 0), 
-            t = Math.min(t, 25);
-        }
-        var n = new Date;
-        n.setUTCMonth(0, 1), (Math.floor((Date.now() - n) / 864e5) + 1) % 26 == t && window.setTimeout(this.authenticate.bind(this), 5e3);
-        var s = window.location.hostname, o = `Unregistered ${Static.componentName} component.`;
-        try {
-            var a = (await import('../../rwt-registration-keys.js')).default;
-            for (let e = 0; e < a.length; e++) {
-                var r = a[e];
-                if (r.hasOwnProperty('product-key') && r['product-key'] == Static.componentName) {
-                    var l = r.registration;
-                    return void (s == l ? console.info(`${Static.componentName} registered to ${l}`) : console.warn(`${o} Register at https://readwritetools.com/registration.blue`));
-                }
+        if (1 == this.instance) {
+            var e = (s = window.location.hostname).split('.'), t = 25;
+            if (e.length >= 2) {
+                var n = e[e.length - 2].charAt(0);
+                (n < 'a' || n > 'z') && (n = 'q'), t = n.charCodeAt(n) - 97, t = Math.max(t, 0), 
+                t = Math.min(t, 25);
             }
-            console.warn(`${o} rwt-registration-key.js file missing "product-key": "${Static.componentName}"`);
-        } catch (e) {
-            console.error(`${o} Be sure to copy rwt-registration-key.js to your website's root directory.`);
+            var i = new Date;
+            i.setUTCMonth(0, 1), (Math.floor((Date.now() - i) / 864e5) + 1) % 26 == t && window.setTimeout(this.authenticate.bind(this), 5e3);
+            var s = window.location.hostname, a = `Unregistered ${Static.componentName} component.`;
+            try {
+                var o = (await import('../../rwt-registration-keys.js')).default;
+                for (let e = 0; e < o.length; e++) {
+                    var l = o[e];
+                    if (l.hasOwnProperty('product-key') && l['product-key'] == Static.componentName) return void (s != l.registration && console.warn(`${a} Register at https://readwritetools.com/registration.blue`));
+                }
+                console.warn(`${a} rwt-registration-key.js file missing "product-key": "${Static.componentName}"`);
+            } catch (e) {
+                console.warn(`${a} Be sure to copy rwt-registration-key.js to your website's root directory.`);
+            }
         }
     }
     async authenticate() {
-        var e = encodeURIComponent(window.location.hostname), t = encodeURIComponent(window.location.href), i = encodeURIComponent(Registration.registration), n = encodeURIComponent(Registration['customer-number']), s = encodeURIComponent(Registration['access-key']), o = {
+        var e = encodeURIComponent(window.location.hostname), t = encodeURIComponent(window.location.href), n = encodeURIComponent(Registration.registration), i = encodeURIComponent(Registration['customer-number']), s = encodeURIComponent(Registration['access-key']), a = {
             method: 'POST',
             mode: 'cors',
             credentials: 'omit',
@@ -184,13 +206,13 @@ export default class RwtPiqueme extends HTMLElement {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded'
             },
-            body: `product-name=${Static.componentName}&hostname=${e}&href=${t}&registration=${i}&customer-number=${n}&access-key=${s}`
+            body: `product-name=${Static.componentName}&hostname=${e}&href=${t}&registration=${n}&customer-number=${i}&access-key=${s}`
         };
         try {
-            var a = await fetch('https://validation.readwritetools.com/v1/genuine/component', o);
-            if (200 == a.status) await a.json();
+            var o = await fetch('https://validation.readwritetools.com/v1/genuine/component', a);
+            if (200 == o.status) await o.json();
         } catch (e) {
-            console.log(e.message);
+            console.info(e.message);
         }
     }
 }
