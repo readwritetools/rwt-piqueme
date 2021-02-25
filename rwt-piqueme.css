@@ -6,10 +6,11 @@
 #above-the-fold{display:block}
 #pullbar{color:var(--title-blue);background-color:var(--medium-black);width:100%;text-align:center;border-radius:33% 33%;margin-bottom:2rem;cursor:pointer}
 #pullbar:hover{color:var(--yellow)}
-#closebar{display:none;width:1px;position:absolute;top:0;left:-1.5rem;bottom:0;border-right:.5rem dashed var(--black);cursor:pointer}
+#closebar{display:none;width:1px;position:absolute;top:0;left:-1.5rem;bottom:0;border-right:.5rem dashed var(--medium-black);cursor:pointer}
 #closebar:hover{border-right:.5rem dashed var(--yellow)}
 #below-the-fold{display:none}
 #byline,#dateline{font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;font-size:.9rem;margin:0 0 2rem 0;color:var(--gray)}
+.no-piqueme{display:none}
 h1:first-of-type{font-family:Georgia,Cambria,"Times New Roman",Times,serif}
 figcaption,h1,h2,h3,h4{font-family:"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif}
 code,pre{font-family:Menlo,Monaco,"Courier New",Courier,monospace}
@@ -41,7 +42,7 @@ hr:before{content:'...';display:inline-block;font-size:1.4rem;letter-spacing:1.6
 a#canonical-url{color:var(--title-blue)}
 figure.full-bleed{border:none;max-width:100%;margin-top:1rem;margin-right:0;margin-bottom:1.65rem;margin-left:0;float:none}
 figure.fit-to-margin,figure:first-of-type{border:none;max-width:100%;margin-top:1rem;margin-right:0;margin-bottom:1.65rem;margin-left:0;float:none}
-figure{border:none;max-width:75%;margin-top:0;margin-right:2rem;margin-bottom:1.65rem;margin-left:-22%;float:left}
+figure{border:none;max-width:75%;margin-top:0;margin-right:2rem;margin-bottom:1.65rem;margin-left:-22%;float:left;z-index:2}
 figure img{border:none;max-width:100%;margin:0}
 figcaption{font-size:.9rem;color:var(--figcaption-color);text-align:center;margin-top:.5rem}
 @media only screen and (max-width:66rem){
