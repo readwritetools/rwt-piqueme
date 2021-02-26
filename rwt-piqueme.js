@@ -189,11 +189,11 @@ export default class RwtPiqueme extends HTMLElement {
                 var o = (await import('../../rwt-registration-keys.js')).default;
                 for (let e = 0; e < o.length; e++) {
                     var l = o[e];
-                    if (l.hasOwnProperty('product-key') && l['product-key'] == Static.componentName) return void (s != l.registration && console.warn(`${a} Register at https://readwritetools.com/registration.blue`));
+                    if (l.hasOwnProperty('product-key') && l['product-key'] == Static.componentName) return void (s != l.registration && console.warn(`${a} See https://readwritetools.com/licensing.blue to learn more.`));
                 }
                 console.warn(`${a} rwt-registration-key.js file missing "product-key": "${Static.componentName}"`);
             } catch (e) {
-                console.warn(`${a} Be sure to copy rwt-registration-key.js to your website's root directory.`);
+                console.warn(`${a} rwt-registration-key.js missing from website's root directory.`);
             }
         }
     }

@@ -40,18 +40,20 @@ hr:before{content:'...';display:inline-block;font-size:1.4rem;letter-spacing:1.6
 :focus{outline:thin dotted}
 #canonical-para{text-align:center}
 a#canonical-url{color:var(--title-blue)}
-figure{border:none;max-width:75%;margin-top:0;margin-right:2rem;margin-bottom:1.65rem;margin-left:-22%;float:left;position:relative}
-#above-the-fold figure,figure.full-bleed{border:none;max-width:150%;margin-top:1rem;margin-right:-25%;margin-bottom:1.65rem;margin-left:-25%;float:none}
-figure img{border:none;max-width:100%;margin:0}
+figure{position:relative;border:none}
+figure{max-width:75%;margin:0 2rem 1.65rem -22%;float:left}
+#above-the-fold figure,figure.fit-to-margin{max-width:100%;margin:1rem 0 1.65rem 0;float:none}
+figure.full-bleed{max-width:150%;margin:1rem -25% 1.65rem -25%;float:none}
+figure img{max-width:100%;margin:0}
 figcaption{font-size:.9rem;color:var(--figcaption-color);text-align:center;margin-top:.5rem}
 @media only screen and (max-width:66rem){
-#above-the-fold figure,figure.full-bleed{width:124%;margin-right:-12%;margin-left:-12%}
+figure.full-bleed{width:124%;margin:1rem -12% 1.65rem -12%}
 }
 @media only screen and (max-width:63rem){
-figure{float:none;margin-right:auto;margin-left:auto}
+figure{float:none;margin:0 auto 1.65rem auto}
 }
 @media only screen and (max-width:55rem){
-#above-the-fold figure,figure.full-bleed{width:100%;margin-right:0;margin-left:0}
+figure.full-bleed{width:100%;margin:1rem 0 1.65rem 0}
 }
 ol,ul{font-size:1.25rem;color:var(--paragraph-color);line-height:1.65;padding-left:1.5rem}
 ol ol,ol ul,ul ol,ul ul{margin-top:0;margin-bottom:0}
