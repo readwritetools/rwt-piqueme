@@ -16,9 +16,9 @@ export default class RwtPiqueme extends HTMLElement {
         this.placeholderArea = null, this.article = null, this.closebar = null, this.aboveTheFold = null, 
         this.splash = null, this.caption = null, this.kicker = null, this.headline = null, 
         this.subhead = null, this.dateline = null, this.byline = null, this.lede = null, 
-        this.pullbar = null, this.belowTheFold = null, this.textblock = null, this.canonicalUrl = null, 
-        this.remoteUrl = null, this.intersectionObserver = null, this.fetchStatus = 'awaiting', 
-        this.documentFragment = null, Object.seal(this);
+        this.pullbar = null, this.belowTheFold = null, this.textblock = null, this.canonicalPara = null, 
+        this.canonicalUrl = null, this.remoteUrl = null, this.intersectionObserver = null, 
+        this.fetchStatus = 'awaiting', this.documentFragment = null, Object.seal(this);
     }
     async connectedCallback() {
         if (this.isConnected) try {
@@ -75,7 +75,8 @@ export default class RwtPiqueme extends HTMLElement {
         this.subhead = this.shadowRoot.getElementById('subhead'), this.dateline = this.shadowRoot.getElementById('dateline'), 
         this.byline = this.shadowRoot.getElementById('byline'), this.lede = this.shadowRoot.getElementById('lede'), 
         this.pullbar = this.shadowRoot.getElementById('pullbar'), this.belowTheFold = this.shadowRoot.getElementById('below-the-fold'), 
-        this.textblock = this.shadowRoot.getElementById('textblock'), this.canonicalUrl = this.shadowRoot.getElementById('canonical-url');
+        this.textblock = this.shadowRoot.getElementById('textblock'), this.canonicalPara = this.shadowRoot.getElementById('canonical-para'), 
+        this.canonicalUrl = this.shadowRoot.getElementById('canonical-url');
     }
     registerEventListeners() {
         this.pullbar.addEventListener('click', this.onClickPullbar.bind(this)), this.closebar.addEventListener('click', this.onClickPullbar.bind(this));
@@ -100,8 +101,9 @@ export default class RwtPiqueme extends HTMLElement {
     onClickPullbar(e) {
         'block' == this.belowTheFold.style.display ? (this.pullbar.innerText = '▼ ▼ ▼', 
         this.pullbar.title = 'Read the full article', this.belowTheFold.style.display = 'none', 
-        this.closebar.style.display = 'none') : (this.pullbar.innerText = '▲ ▲ ▲', this.pullbar.title = 'Close the full article', 
-        this.belowTheFold.style.display = 'block', this.closebar.style.display = 'block');
+        this.closebar.style.display = 'none', this.lede.style.display = 'block', this.canonicalPara.style.display = 'block') : (this.pullbar.innerText = '▲ ▲ ▲', 
+        this.pullbar.title = 'Close the full article', this.belowTheFold.style.display = 'block', 
+        this.closebar.style.display = 'block', this.lede.style.display = 'none', this.canonicalPara.style.display = 'none');
     }
     async fetchAndProcess() {
         this.fetchStatus = 'in progress', this.style.cursor = 'wait', this.documentFragment = await this.fetchRemoteUrl(), 
