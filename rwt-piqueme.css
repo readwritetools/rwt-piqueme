@@ -38,8 +38,9 @@ hr:before{content:'...';display:inline-block;font-size:1.4rem;letter-spacing:1.6
 .graf-dropCap{font-size:3.9rem;float:left;position:relative;top:-1rem;margin:0 0 -3rem;padding:0 .1rem 0 0}
 :link,:visited{text-decoration:none;border-bottom:1px solid var(--paragraph-color);color:var(--paragraph-color)}
 :focus{outline:thin dotted}
-#canonical-para{text-align:center}
-a#canonical-url{color:var(--title-blue)}
+#canonical-para{font-size:.9rem;text-align:right}
+a#canonical-url{color:var(--paragraph-color);border-bottom:none}
+a#canonical-url:hover{color:var(--title-blue);border-bottom:1px dotted var(--title-blue)}
 figure{position:relative;border:none}
 figure{max-width:75%;margin:0 2rem 1.65rem -22%;float:left}
 #above-the-fold figure,figure.fit-to-margin{max-width:100%;margin:1rem 0 1.65rem 0;float:none}
