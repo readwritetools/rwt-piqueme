@@ -1,6 +1,6 @@
 {
   "name": "rwt-piqueme",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A just-in-time continuous feed of articles featuring collapsable/expandable UI cards; a standards-based DOM Component",
   "author": "Read Write Tools",
   "license": "see license.html",
